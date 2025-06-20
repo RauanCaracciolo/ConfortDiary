@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1068211979636",
+    "project_id": "confortdiary",
+    "storage_bucket": "confortdiary.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068211979636:android:5c807f9f55a59276505821",
+        "android_client_info": {
+          "package_name": "edu.ifsp.com.br.confortdiary"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz0Ck4KK6CWBQ3_KELuYBWZTixtFZ3jrA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
