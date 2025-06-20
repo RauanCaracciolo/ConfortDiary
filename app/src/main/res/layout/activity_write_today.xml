@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="#FFF8E1">
+
+    <!-- Imagem do dia -->
+
+    <!-- Texto do dia -->
+    <ImageView
+        android:id="@+id/imagePreview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
+        android:contentDescription="Imagem do dia"
+        android:scaleType="centerCrop"
+        android:src="@drawable/example"
+        app:layout_constraintBottom_toTopOf="@id/etTextEntry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etTextEntry"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint="Como foi seu dia?"
+        android:gravity="top|start"
+        android:backgroundTint="#8D6E63"
+        android:textColor="#000000"
+        android:textColorHint="#9E9E9E"
+        android:padding="12dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/imagePreview"
+        app:layout_constraintBottom_toTopOf="@id/emojiGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.4"
+        android:layout_marginVertical="8dp" />
+
+    <!-- Emojis -->
+    <RadioGroup
+        android:id="@+id/emojiGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/etTextEntry"
+        app:layout_constraintBottom_toTopOf="@id/btnCamera"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp">
+
+        <!-- Emojis com tamanhos definidos -->
+        <RadioButton android:id="@+id/moodVerySad" android:layout_width="64dp" android:layout_height="64dp" android:text="😢" android:textSize="24sp" android:button="@null" android:gravity="center" android:background="@android:color/transparent"/>
+        <RadioButton android:id="@+id/moodSad" android:layout_width="64dp" android:layout_height="64dp" android:text="☹️" android:textSize="24sp" android:button="@null" android:gravity="center" android:background="@android:color/transparent"/>
+        <RadioButton android:id="@+id/moodNormal" android:layout_width="64dp" android:layout_height="64dp" android:text="😐" android:textSize="24sp" android:button="@null" android:gravity="center" android:background="@android:color/transparent"/>
+        <RadioButton android:id="@+id/moodHappy" android:layout_width="64dp" android:layout_height="64dp" android:text="🙂" android:textSize="24sp" android:button="@null" android:gravity="center" android:background="@android:color/transparent"/>
+        <RadioButton android:id="@+id/moodVeryHappy" android:layout_width="64dp" android:layout_height="64dp" android:text="😄" android:textSize="24sp" android:button="@null" android:gravity="center" android:background="@android:color/transparent"/>
+    </RadioGroup>
+
+    <!-- Botão da câmera -->
+    <ImageButton
+        android:id="@+id/btnCamera"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/rounded_button"
+        android:src="@android:drawable/ic_menu_camera"
+        android:contentDescription="Abrir câmera"
+        app:layout_constraintTop_toBottomOf="@id/emojiGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Botão de microfone -->
+    <ImageButton
+        android:id="@+id/btnMicrophone"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/rounded_button"
+        android:src="@android:drawable/ic_btn_speak_now"
+        android:contentDescription="Gravar voz"
+        app:layout_constraintTop_toBottomOf="@id/emojiGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
