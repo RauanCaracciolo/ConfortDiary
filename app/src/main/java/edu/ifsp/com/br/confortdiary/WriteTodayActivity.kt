@@ -13,12 +13,20 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import edu.ifsp.com.br.confortdiary.databinding.ActivityWriteTodayBinding
+import edu.ifsp.com.br.confortdiary.model.Day
+import edu.ifsp.com.br.confortdiary.model.Mood
+import edu.ifsp.com.br.confortdiary.viewModel.DayViewModel
+import java.io.File
+import java.io.FileOutputStream
+import java.text.SimpleDateFormat
 import java.util.*
 
 class WriteTodayActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWriteTodayBinding
+    private lateinit var viewModel: DayViewModel
     private var capturedImage: Bitmap? = null
 
     companion object {
@@ -54,6 +62,8 @@ class WriteTodayActivity : AppCompatActivity() {
         binding = ActivityWriteTodayBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this)[DayViewModel::class.java]
+
         checkAndRequestPermissions()
 
         binding.btnCamera.setOnClickListener {
@@ -64,12 +74,9 @@ class WriteTodayActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnMicrophone.setOnClickListener {
-            if (hasMicPermission()) {
-                startVoiceRecognition()
-            } else {
-                requestMicPermission()
-            }
+
+        binding.btnSave.setOnClickListener {
+            saveDay()
         }
     }
 
@@ -83,15 +90,61 @@ class WriteTodayActivity : AppCompatActivity() {
         speechResultLauncher.launch(intent)
     }
 
-    private fun getSelectedMood(): String? {
+    private fun getSelectedMood(): Mood? {
         val selectedId = binding.emojiGroup.checkedRadioButtonId
         return if (selectedId != -1) {
-            findViewById<RadioButton>(selectedId).text.toString()
+            when (findViewById<RadioButton>(selectedId).text.toString().lowercase()) {
+                "😢" -> Mood.verySad
+                "🙁" -> Mood.sad
+                "😐" -> Mood.normal
+                "🙂" -> Mood.happy
+                "😁" -> Mood.veryHappy
+                else -> Mood.normal
+            }
         } else null
     }
 
-    // Permissões
+    private fun saveBitmapToInternalStorage(bitmap: Bitmap, filename: String): String {
+        val file = File(filesDir, filename)
+        FileOutputStream(file).use { out ->
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+        }
+        return file.absolutePath
+    }
 
+    private fun getTodayId(): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return sdf.format(Date())
+    }
+
+    private fun saveDay() {
+        val text = binding.etTextEntry.text.toString()
+        val mood = getSelectedMood()
+        val bitmap = capturedImage
+
+        if (text.isBlank() || mood == null || bitmap == null) {
+            Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val fileName = "${getTodayId()}.png"
+        val photoPath = saveBitmapToInternalStorage(bitmap, fileName)
+
+        val day = Day(
+            id = getTodayId(),
+            photo = photoPath,
+            text = text,
+            mood = mood,
+            time = System.currentTimeMillis()
+        )
+
+        viewModel.insertDay(this, day)
+
+        Toast.makeText(this, "Dia salvo com sucesso!", Toast.LENGTH_SHORT).show()
+        finish()
+    }
+
+    // Permissões
     private fun hasCameraPermission(): Boolean =
         ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
 
