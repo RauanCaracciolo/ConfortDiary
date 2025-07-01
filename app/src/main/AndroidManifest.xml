@@ -30,6 +30,18 @@
             android:name=".WriteTodayActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".ViewDaysActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".CalendarActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".RetrospectiveActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

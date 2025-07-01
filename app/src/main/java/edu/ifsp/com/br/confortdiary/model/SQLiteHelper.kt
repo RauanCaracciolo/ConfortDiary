@@ -39,6 +39,23 @@ class SQLiteHelper(context: Context) :
         return result != -1L
     }
 
+    fun getAllDates(): List<Long> {
+        val list = mutableListOf<Long>()
+        val db = readableDatabase
+        val cursor = db.rawQuery("SELECT time FROM day", null)
+
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(cursor.getLong(0))
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
+        db.close()
+        return list
+    }
+
+
     fun getDayById(id: String): Day? {
         val db = readableDatabase
         val cursor = db.query(
