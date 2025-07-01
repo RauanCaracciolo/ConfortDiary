@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper
 class SQLiteHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
+
     override fun onCreate(db: SQLiteDatabase) {
         val createTable = """
             CREATE TABLE $TABLE_DAY (
@@ -75,7 +76,23 @@ class SQLiteHelper(context: Context) :
             db.close()
             null
         }
+
+
     }
+    fun updateDay(day: Day): Boolean {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put("photo", day.photo)
+            put("text", day.text)
+            put("mood", day.mood.name)
+            put("time", day.time)
+        }
+        val result = db.update(TABLE_DAY, values, "id = ?", arrayOf(day.id))
+        db.close()
+        return result > 0
+    }
+
+
 
     companion object {
         private const val DATABASE_NAME = "confort_diary.db"

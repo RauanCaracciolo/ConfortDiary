@@ -12,4 +12,12 @@ class DayViewModel : ViewModel() {
         val dbHelper = SQLiteHelper(context)
         return dbHelper.insertDay(day)
     }
+    fun updateDay(context: Context, day: Day): Boolean {
+        val db = SQLiteHelper(context)
+        return db.updateDay(day)
+    }
+    fun getDayById(context: Context, id: String): Day? {
+        val db = SQLiteHelper(context)
+        return db.getDayById(id)
+    }
 }
