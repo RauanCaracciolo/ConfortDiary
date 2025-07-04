@@ -24,10 +24,5 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ViewDaysActivity::class.java)
             startActivity(intent)
         }
-
-        binding.btnViewRetrospective.setOnClickListener {
-            val intent = Intent(this, RetrospectiveActivity::class.java)
-            startActivity(intent)
-        }
     }
 }

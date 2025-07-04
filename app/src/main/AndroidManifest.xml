@@ -39,13 +39,10 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".RetrospectiveActivity"
-            android:exported="true">
-        </activity>
-        <activity
             android:name=".ViewSingleDayActivity"
             android:exported="true">
         </activity>
+
     </application>
 
 </manifest>
