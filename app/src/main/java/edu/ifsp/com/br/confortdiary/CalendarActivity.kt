@@ -1,5 +1,6 @@
 package edu.ifsp.com.br.confortdiary
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -44,7 +45,11 @@ class CalendarActivity : AppCompatActivity() {
         viewModel.daysWithEntry.observe(this, Observer { days ->
             binding.calendarRecyclerView.layoutManager = GridLayoutManager(this, 7)
             binding.calendarRecyclerView.adapter = CalendarAdapter(days) { selectedDay ->
-                Toast.makeText(this, "Abrir dia $selectedDay", Toast.LENGTH_SHORT).show()
+                val selectedDateId = String.format("%04d-%02d-%02d", year, month + 1, selectedDay)
+
+                val intent = Intent(this, ViewSingleDayActivity::class.java)
+                intent.putExtra("day_id", selectedDateId)
+                startActivity(intent)
             }
         })
 
