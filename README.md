@@ -28,6 +28,11 @@ ConfortDiary é um aplicativo Android de diário emocional e visual, que permite
 ## 📸 Capturas de Tela
 
 
+
+https://github.com/user-attachments/assets/8d436a78-d84e-430f-bd46-8b4a8f920f01
+
+
+
 ## 📅 Futuras Atualizações
 
 - 📈 **Retrospectiva de Mês**: resumo dos sentimentos e fotos/textos marcantes
